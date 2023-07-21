@@ -1,0 +1,85 @@
+#include <LiquidCrystal.h>
+
+LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
+
+int green = 8;
+int blue = 9;
+int red = 10;
+int buzzerPin = 7; 
+
+void setup()
+{
+  lcd.begin(16, 2);
+  pinMode(buzzerPin, OUTPUT); 
+  pinMode(green,OUTPUT);
+  pinMode(blue,OUTPUT);
+  pinMode(red,OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop()
+{
+  
+ 
+
+  if (Serial.available() > 0) {
+    char data = Serial.read();
+    // If the received data is 'R', turn on the red light and the buzzer
+    if (data == 'R') {
+      digitalWrite(red, HIGH);
+      digitalWrite(blue, LOW);
+      digitalWrite(green, LOW);
+      digitalWrite(buzzerPin, HIGH);
+        lcd.setCursor(2, 0);
+  lcd.print("    STOP.    ");
+      
+      
+      
+       
+    } 
+    // If the received data is 'O', turn off all lights and the buzzer
+    else if (data == 'O') {
+      digitalWrite(red, LOW);
+      digitalWrite(blue, LOW);
+      digitalWrite(green, LOW);
+      digitalWrite(buzzerPin, LOW);
+      
+      
+    }
+    // If the received data is 'Y', turn on the yellow light and the buzzer
+    else if (data == 'Y') {
+      digitalWrite(red, HIGH);
+      digitalWrite(green, HIGH);
+      digitalWrite(blue, LOW);
+      digitalWrite(buzzerPin, LOW);
+      lcd.setCursor(1, 0);
+  lcd.print("    READY...");
+      
+      delay(2000); 
+    
+    } 
+    // If the received data is 'G', turn on the green light and the buzzer
+    else if (data == 'G') {
+      digitalWrite(red, LOW);
+      digitalWrite(blue, LOW);
+      digitalWrite(green, HIGH);
+      digitalWrite(buzzerPin, LOW);
+      lcd.setCursor(2, 0);
+  lcd.print("     GO!     ");
+  
+     
+      
+    } 
+    // If the received data is 'O', turn off all lights and the buzzer
+    else if (data == 'O') {
+      digitalWrite(red, LOW);
+      digitalWrite(blue, LOW);
+      digitalWrite(green, LOW);
+      digitalWrite(buzzerPin, LOW);
+      
+   
+      
+    }
+ 
+}
+}
